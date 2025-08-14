@@ -220,20 +220,20 @@ try {
 
   const GALLERY = {
     "caza-tie": [
-      "../img/starwars/Leonardo_CM_render_01.jpg",
-      "../img/starwars/LEONARDO_CM_Blocking_CP3.png",
-      "../img/starwars/Leonardo_CM_render_02.jpg",
-      "../img/starwars/LEONARDO_CM_Blocking_CP2.png",
-      "../img/starwars/Leonardo_CM_render_03.jpg"
+      "img//starwars/Leonardo_CM_render_01.jpg",
+      "img//starwars/LEONARDO_CM_Blocking_CP3.png",
+      "img//starwars/Leonardo_CM_render_02.jpg",
+      "img//starwars/LEONARDO_CM_Blocking_CP2.png",
+      "img//starwars/Leonardo_CM_render_03.jpg"
     ],
     "nave-stopmotion": [
-      "../img/Nave/escena_1 (61).png",
-      "../img/Nave/escena1.mp4"
+      "img//Nave/escena_1 (61).png",
+      "img//Nave/escena1.mp4"
     ],
     "dmnt-toy": [
-      "../img/DMNTTOY/06a6f96e-6ab2-4d6f-9684-b0b29e99c879.png",
-      "../img/DMNTTOY/da6dbc5e-ee05-458a-9226-af009db68aec.jpg",
-      "../img/DMNTTOY/e162b2d7-fdc1-4e29-9bae-5dcc1af4daef.jpg"
+      "img//DMNTTOY/06a6f96e-6ab2-4d6f-9684-b0b29e99c879.png",
+      "img//DMNTTOY/da6dbc5e-ee05-458a-9226-af009db68aec.jpg",
+      "img//DMNTTOY/e162b2d7-fdc1-4e29-9bae-5dcc1af4daef.jpg"
     ]
   };
 
