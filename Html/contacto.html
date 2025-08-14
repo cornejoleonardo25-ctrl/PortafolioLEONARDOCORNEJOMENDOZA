@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>DEMENTES STUDIO | Bienvenida</title>
+  <style>
+    body, html {
+      margin: 0; padding: 0; height: 100vh; background: #0f0f0f; display: flex; flex-direction: column; justify-content: center; align-items: center; color: #00ffcc; font-family: 'Share Tech Mono', monospace;
+    }
+    iframe {
+      width: 600px; /* ajusta el tamaño */
+      height: 600px;
+      border: none;
+    }
+    #enter-text {
+      margin-top: 20px;
+      font-size: 1.8rem;
+      cursor: pointer;
+      text-shadow: 0 0 8px #00ffcc;
+      user-select: none;
+      transition: color 0.3s ease;
+    }
+    #enter-text:hover {
+      color: #ff0080;
+      text-shadow: 0 0 15px #ff0080;
+    }
+  </style>
+</head>
+<body>
+
+  <iframe src="https://prod.spline.design/qmsqTdOC70cvGvYa/scene.splinecode" allowfullscreen></iframe>
+
+  <div id="enter-text">Haz clic para entrar</div>
+
+  <script>
+    document.getElementById('enter-text').addEventListener('click', () => {
+      window.location.href = 'portafolio.html'; // Cambia por tu ruta real
+    });
+  </script>
+  
+</body>
+</html>

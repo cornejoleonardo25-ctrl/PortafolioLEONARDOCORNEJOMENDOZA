@@ -1,0 +1,980 @@
+@import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
+
+/* ===== Tokens de color ===== */
+:root{
+  --bg:#111;
+  --text:#e6f2ef;
+  --muted:#c7c7c7;
+  --accent:#ffffff;
+  --accent-2:#ff0080;
+  --card:#ff0080;
+  --chip-bg:#77777736;
+  --chip-border:#ffffff49;
+}
+
+*,
+*::before,
+*::after { box-sizing: border-box; }
+
+html { scrollbar-gutter: stable both-edges; } /* <-- FIX hueco derecho */
+
+body {
+  width: auto;
+  height: auto;
+  font-family: 'Share Tech Mono', monospace;
+  color: var(--accent);
+  user-select: none;
+  position: relative;
+  background-color: var(--bg);
+  margin: 0;
+  padding-top: 80px;
+  overflow-x: hidden;
+  cursor: url('../img/normal.cur'), auto;
+}
+
+nav.nav {
+  position: fixed;
+  top: 0; left: 0; width: 100%;
+ 
+ 
+  padding: 1rem 1rem;
+  display: flex; justify-content: space-between; align-items: center; gap: 1rem;
+  z-index: 1000;
+}
+
+nav.nav a {
+  color: #ffffff; text-decoration: none; font-weight: bold; font-size: 1rem;
+  position: relative; cursor: pointer;
+  transition: color .3s ease, text-shadow .3s ease;
+}
+nav.nav a:hover {
+  color: var(--accent-2); /* O el color que quieras mantener */
+  text-shadow: 0 0 20px rgb(255, 255, 255),
+               0 0 12px var(--accent-2);
+}
+
+nav.nav a::after, nav.nav a::before {
+  content: ''; position: absolute; left: 0; width: 100%; height: 2px;
+  transform: scaleX(0); transition: transform .4s ease-out; box-shadow: 0 0 6px var(--accent-2);
+}
+nav.nav a::after { bottom: -4px; background: linear-gradient(to right, #ff9be1, var(--accent-2)); }
+nav.nav a::before { top: -4px;    background: linear-gradient(to right, var(--accent-2), #ff9be1); }
+nav.nav a:hover::after { transform: scaleX(1); transform-origin: left; }
+nav.nav a:hover::before { transform: scaleX(1); transform-origin: right; }
+
+.nav-logo img { height: 100px; cursor: pointer; transition: filter .4s ease, transform .3s ease; }
+.nav-logo img:hover { filter: drop-shadow(0 0 6px var(--accent-2)) drop-shadow(0 0 12px var(--accent-2)); transform: scale(1.05); }
+
+.nav-links { display: flex; gap: 2rem; }
+
+/* ===== Header / Parallax ===== */
+.glitch-background {
+  position: absolute; top: -10%; left: 0; width: 100%; height: 100%;
+  transform: scale(2); transform-origin: center; z-index: 0; border: none; pointer-events: none; opacity: 0.8;
+}
+
+.img-esquina-derecha { z-index: 2;
+  position: absolute; bottom: 20px; right: 40px; width: 500px; height: auto;
+  z-index: 2; pointer-events: none; opacity: 1;
+  transform: translateX(0) scale(1);
+  transition: transform .1s ease-out; will-change: transform;
+}
+
+.parallax-header {
+  position: relative; height: 90vh; width: 100%; /* <-- antes 100vw */
+  overflow: hidden;
+  display: flex; flex-direction: column; justify-content: flex-end; align-items: center;
+  color: #c7c7c7; text-shadow: 0 0 20px #ffffff; text-align: center;
+  padding: 0 20px 40px; box-sizing: border-box;
+}
+
+.texto-centro-abajo {
+  font-family: 'Orbitron', sans-serif; z-index: 1; max-width: 100%;
+  text-align: center; user-select: none;
+}
+.texto-centro-abajo h1 {
+  margin: 0; font-size: 3.5rem; color: #ffffff;
+  text-shadow: 0 0 5px #ffffff, 0 0 10px #ffffff, 0 0 20px #ffffff, 0 0 40px #ffffff, 0 0 80px #ffffff;
+  animation: flicker 5s infinite alternate;
+}
+.texto-centro-abajo p {
+  margin: 8px 0 0; font-size: 2.5rem; color: #ffffff;
+  text-shadow: 0 0 5px #ffffff, 0 0 10px #ffffff, 0 0 20px #ffffff, 0 0 40px #ffffff, 0 0 80px #ffffff;
+  animation: flicker 3s infinite alternate;
+}
+
+/* Flicker */
+@keyframes flicker {
+  0%, 100% { opacity: 1; text-shadow: 0 0 5px currentColor, 0 0 10px currentColor, 0 0 20px currentColor, 0 0 40px currentColor, 0 0 80px currentColor; }
+  50%      { opacity: .8; text-shadow: 0 0 10px currentColor, 0 0 20px currentColor, 0 0 30px currentColor, 0 0 50px currentColor, 0 0 100px currentColor; }
+}
+
+/* ===== ¿Qué es? ===== */
+.proyecto-completo#que-es {
+  position: relative; overflow: hidden; padding: 40px 20px;
+  color: var(--accent); background-color: var(--bg);
+}
+
+.content-wrapper { display: flex; align-items: center; justify-content: space-between; gap: 40px; max-width: 1200px; margin: 0 auto; flex-wrap: wrap; }
+.texto-izquierda { flex: 1 1 500px; max-width: 600px; }
+.texto-izquierda h2 { font-size: 2.5rem; color: var(--accent-2); margin-bottom: 20px; }
+.texto-izquierda p  { font-size: 1.2rem; line-height: 1.6; color: #e4e4e4; }
+
+.chips-servicios { display: flex; flex-wrap: wrap; gap: 10px; margin: 22px 0 0; padding: 0; list-style: none; }
+.chip {
+  border: 1px solid var(--chip-border);
+  background: linear-gradient(180deg, #0b1012, var(--chip-bg));
+  color: var(--text); padding: 8px 12px; border-radius: 999px; font-size: .9rem; letter-spacing: .3px;
+  transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease;
+  box-shadow: 0 0 0 rgba(255,255,255,0);
+}
+.chip:hover { transform: translateY(-2px); border-color: var(--accent); box-shadow: 0 0 12px rgba(0,255,204,.25); }
+
+/* Imágenes derecha con crossfade */
+.imagenes-derecha { position: relative; flex: 1 1 0px; max-width: 700px; height: 700px; overflow: visible; z-index: 0; }
+.background-image {
+  position: absolute; inset: 0;
+  background-repeat: no-repeat; background-position: right center; background-size: contain;
+  pointer-events: none; opacity: 0; transition: opacity 3.6s ease; z-index: 1;
+}
+.background-image.visible { opacity: 1; }
+.background-image.image1 { background-image: url("../img/1x/logo incial.png"); }
+.background-image.image2 { background-image: url("../img/1x/logo opacidad.png"); }
+
+.parallax-content { position: relative; z-index: 10; }
+
+/* ===== Presentación ===== */
+.presentacion { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; padding: 80px 20px; background-color: #1a1a1a3a; gap: 30px; }
+.presentacion .foto { flex: 1 1 300px; text-align: center; }
+.presentacion .foto img { max-width: 100%; max-height: 300px; border-radius: 10px;   transition: transform .3s ease; }
+.presentacion .foto img:hover { transform: scale(1.05); }
+.presentacion .descripcion { flex: 2 1 200px; padding: 20px; color: #e4e4e4; }
+.presentacion .descripcion p {
+  font-size: clamp(1rem, 2vw, 1.5rem);
+  line-height: 1.9;
+}
+
+.presentacion .descripcion h2 { color: var(--accent-2); font-size: 2rem; margin-bottom: 10px;padding: 10%; }
+/* Presentación: layout alto y animaciones */
+
+#sobre-mi .foto{
+  display: flex;
+  align-items: flex-end;       /* empuja la imagen hacia abajo */
+}
+
+#sobre-mi .foto img{
+  height: 100%;                /* llena en alto la columna */
+  max-height: none;            /* ignora el tope previo */
+  width: auto;
+  object-fit: contain;
+  transform: translateY(24px); /* estado inicial: “desde abajo” */
+  opacity: 0;
+  transition: transform .6s ease, opacity .6s ease;
+  will-change: transform, opacity;
+}
+
+/* Texto también puede entrar suave */
+#sobre-mi .descripcion{
+  transform: translateY(16px);
+  opacity: 0;
+  transition: transform .6s ease .08s, opacity .6s ease .08s;
+}
+
+/* Cuando la sección está en vista, disparamos la entrada */
+#sobre-mi.is-inview .foto img{
+  transform: translateY(0);
+  opacity: 1;
+}
+#sobre-mi.is-inview .descripcion{
+  transform: translateY(0);
+  opacity: 1;
+}
+
+/* ===== Sección genérica ===== */
+.proyecto-completo { background-color: var(--bg); color: var(--accent); padding: 100px 30px; text-align: center;  }
+.proyecto-completo h2 { color: var(--accent-2); font-size: 2.5rem; margin-bottom: 20px; }
+.proyecto-completo p  { max-width: auto; margin: 0 auto; font-size: 1.2rem; line-height: 1.8; color: #e4e4e4; }
+
+/* ===== Proyectos (grid base) ===== */
+.proyectos { padding: 8px 20px; background: #0000007e; }
+
+.proyectos.dock .container {
+  padding-left: 0;   /* antes 5% causaba aire lateral */
+  padding-right: 0;
+}
+
+.proyectos h2 { color: var(--accent-2); font-size: 2.3rem; margin-bottom: 30px; text-align:center; }
+
+.grid-proyectos { display: grid; grid-template-columns: repeat(12, 1fr); gap: 22px; }
+.card-proyecto {
+  grid-column: span 12; background: linear-gradient(180deg, #111, #0d0f12);
+  border: 1px solid #222a2a; border-radius: 16px; overflow: clip;
+  box-shadow: 0 0 0 rgba(0,0,0,0);
+  transition: transform .35s cubic-bezier(.2,.7,.2,1), box-shadow .35s ease, border-color .35s ease;
+}
+@media (min-width: 720px)  { .card-proyecto { grid-column: span 6; } }
+@media (min-width: 1100px) { .card-proyecto { grid-column: span 4; } }
+
+.card-link { display: grid; grid-template-rows: 600px auto; color: inherit; text-decoration: none; }
+.card-cover{
+  background-image: var(--cover);
+  background-size: cover; 
+  background-position: var(--pos, center);
+  filter: saturate(.9) brightness(.95);
+  transform: scale(1.02);
+  transition: transform .4s ease, filter .4s ease;
+}
+
+/* Presets de foco por data-pos en la tarjeta */
+.card-proyecto[data-pos="top"]    .card-cover { --pos: center top; }
+.card-proyecto[data-pos="bottom"] .card-cover { --pos: center bottom; }
+.card-proyecto[data-pos="left"]   .card-cover { --pos: left center; }
+.card-proyecto[data-pos="right"]  .card-cover { --pos: right center; }
+.card-proyecto[data-pos="center"] .card-cover { --pos: center; }
+
+.card-body { padding: 16px 18px 18px; }
+.card-body h3 { margin: 0 0 6px; color: var(--text); font-size: 1.15rem; letter-spacing:.3px; }
+.card-role { margin: 0 0 10px; color: var(--accent-2); font-size: .95rem; }
+
+.card-tags { display:flex; flex-wrap:wrap; gap:8px; list-style:none; padding:0; margin:0 0 14px; }
+.card-tags li{ font-size:.8rem; padding:6px 10px; border-radius:999px; border:1px solid #3a3a3a; color:#d0e6e1; background:#0c1113; }
+
+.card-cta{ display:inline-block; font-size:.92rem; color:#e9fffb; border-bottom:1px solid rgba(0,255,204,.45); transition: transform .25s ease, color .25s ease, text-shadow .25s ease; }
+
+.card-proyecto:hover { transform: translateY(-6px); border-color: rgb(255, 255, 255); box-shadow: 0 12px 26px rgba(0,0,0,.5), 0 0 24px rgba(255, 255, 255, 0.15); }
+.card-proyecto:hover .card-cover { transform: scale(1); filter: saturate(1.05) brightness(1.2); }
+.card-proyecto:hover .card-cta { color:#fff; text-shadow:0 0 10px rgb(255, 255, 255); }
+
+/* ===== Modelos 3D ===== */
+.modelos-3d { background-color: #1a1a1a10; padding: 80px 20px; text-align: center; }
+.modelos-3d h2 { color: var(--accent-2); font-size: 2.3rem; margin-bottom: 40px; }
+.galeria-modelos { display: grid; grid-template-columns: 1fr; gap: 40px; max-width: 1000px; margin: 0 auto; }
+.modelo-item iframe { width: 100%; height: 500px; border: none; border-radius: 10px; box-shadow: 0 0 20px var(--accent); background-color: var(--bg); }
+.modelo-item p { margin-top: auto; color: var(--text); }
+
+/* ===== Footer ===== */
+footer {
+  background-color: rgba(0, 0, 0, 0.089);
+  color: var(--accent);
+  padding: 30px 20px;
+  text-align: center;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;   /* centra horizontalmente */
+  justify-content: center; /* si quieres centrar verticalmente en altura fija */
+}
+
+footer nav.footer-nav {
+  margin-bottom: 15px;
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+}
+
+footer nav.footer-nav a {
+  color: var(--accent);
+  text-decoration: none;
+  font-weight: bold;
+  transition: color .3s ease;
+}
+
+footer nav.footer-nav a:hover {
+  color: var(--accent-2);
+}
+
+/* ===== Partículas ===== */
+#tsparticles { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; }
+
+/* ===== Modal base ===== */
+.pm { position: fixed; inset: 0; display: none; z-index: 2000; }
+.pm.is-open { display: block; }
+.pm__backdrop { position: absolute; inset: 0; background: rgba(0,0,0,.65); backdrop-filter: blur(10px); animation: pmFade .25s ease; }
+@keyframes pmFade { from { opacity: 0 } to { opacity: 1 } }
+
+.pm__dialog {
+  position: relative; width: min(1100px, 92vw); max-height: 88vh; margin: 5vh auto;
+  background: linear-gradient(180deg, #101214, #0b0d0f);
+  border: 1px solid rgb(255, 255, 255); border-radius: 16px;
+  box-shadow: 0 24px 60px rgba(0,0,0,.6), 0 0 24px rgba(255, 255, 255, 0.247);
+  overflow: hidden; animation: pmPop .25s cubic-bezier(.2,.7,.2,1);
+}
+@keyframes pmPop { from { transform: translateY(12px); opacity: 0 } to { transform: none; opacity: 1 } }
+
+.pm__close {
+  position: absolute; top: 8px; right: 8px; background: #0f1316; color: #e8fbf7;
+  border: 1px solid rgb(255, 255, 255); border-radius: 10px; padding: 6px 10px; cursor: pointer;
+}
+.pm__close:hover { box-shadow: 0 0 12px rgb(255, 255, 255); }
+
+/* ===== Carrusel ===== */
+.pm__media { position: relative; background: #0b0d0f; min-height: 360px; display: grid; place-items: center; }
+.pm__slides { width: 100%; height: 60vh; max-height: 680px; position: relative; }
+@media (max-width: 900px){ .pm__slides { height: 58vh; } }
+
+.pm__slide { position: absolute; inset: 0; opacity: 0; transition: opacity .35s ease; background-size: cover; background-position: center; }
+.pm__slide.is-active { opacity: 1; }
+
+.pm__nav {
+  position: absolute; top: 50%; transform: translateY(-50%);
+  background: rgba(15,19,22,.65); border: 1px solid rgba(255,255,255,.15);
+  color: #e6f2ef; width: 40px; height: 40px; border-radius: 50%;
+  cursor: pointer; display: grid; place-items: center;
+}
+.pm__nav--prev { left: 10px; }
+.pm__nav--next { right: 10px; }
+.pm__nav:hover { border-color: rgba(247, 0, 255, 0.45); }
+
+.pm__dots {
+  position: absolute; bottom: 12px; left: 50%; transform: translateX(-50%);
+  display: flex; gap: 8px; padding: 6px 8px; border-radius: 999px;
+  background: rgba(0,0,0,.25); backdrop-filter: blur(4px);
+}
+.pm__dot { width: 8px; height: 8px; border-radius: 999px; border: 1px solid rgba(255,255,255,.6); background: rgba(255,255,255,.15); cursor: pointer; }
+.pm__dot.is-active { background: var(--accent); border-color: var(--accent); }
+
+.pm__thumbs {
+  position: absolute; left: 50%; transform: translateX(-50%);
+  bottom: 56px; display: flex; gap: 8px; padding: 6px 8px;
+  background: rgba(0,0,0,.25); backdrop-filter: blur(4px);
+  border-radius: 12px; max-width: calc(100% - 40px); overflow-x: auto;
+}
+.pm__thumb {
+  width: 64px; height: 48px; border-radius: 8px; overflow: hidden; border: 1px solid rgba(255,255,255,.25);
+  cursor: pointer; flex: 0 0 auto; opacity: .8; transition: transform .2s ease, opacity .2s ease, border-color .2s ease;
+}
+.pm__thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.pm__thumb:hover { transform: translateY(-1px); opacity: 1; }
+.pm__thumb.is-active { border-color: var(--accent); opacity: 1; }
+
+@media (max-width: 720px) { .pm__thumbs { display: none; } }
+
+/* Evita scroll del body cuando el modal está abierto */
+body.pm-open { overflow: hidden; }
+
+.pm--contain .pm__slide { background-size: contain; background-color:#0b0d10; }
+.pm--cover   .pm__slide { background-size: cover; }
+
+/* ===== Modal: que IMG/VIDEO ocupen el slide y se centren ===== */
+.pm__media{
+  max-height: 78vh;
+  aspect-ratio: 16/9;
+  margin: 0 auto;
+}
+
+.pm__slides{
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.pm__slide{
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: var(--bg, cover);
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.pm__slide > img,
+.pm__slide > video{
+  width: 100%;
+  height: 100%;
+  object-fit: var(--obj, cover);
+  display: block;
+}
+
+.pm--contain .pm__slide{ --bg: contain; }
+.pm--cover   .pm__slide{ --bg: cover; }
+.pm--contain .pm__slide > img,
+.pm--contain .pm__slide > video{ --obj: contain; }
+.pm--cover   .pm__slide > img,
+.pm--cover   .pm__slide > video{ --obj: cover; }
+
+.pm__thumb .thumb-video{
+  width: 64px; height: 48px;
+  display: grid; place-items: center;
+  border-radius: 8px;
+  background: #161a1f;
+  font-size: 22px;
+}
+
+/* --- Modal adaptativo por orientación --- */
+.pm--portrait .pm__dialog { width: min(780px, 92vw); }
+.pm--portrait .pm__media  { aspect-ratio: 9 / 16; }
+
+/* ===== Carrusel con flechas (contenedor = sección) ===== */
+section.proyectos.dock {
+  position: relative;
+  overflow: hidden; /* ocultamos lo que se sale para que no se vean partículas */
+}
+
+section.proyectos.dock .grid-proyectos {
+  display: flex !important;
+  flex-wrap: nowrap !important;
+  gap: 20px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  inline-size: 100%;
+  max-inline-size: 100%;
+  padding-block-end: 56px;
+  scroll-snap-type: x proximity;
+  scroll-padding-inline: 8px;
+  overscroll-behavior-inline: contain;
+}
+
+.proyectos,
+.proyectos .container,
+section.proyectos.dock .grid-proyectos {
+  min-width: 0 !important;
+}
+
+section.proyectos.dock .card-proyecto {
+  flex: 0 0 var(--card-w, 600px);
+  scroll-snap-align: center; /* antes center → generaba hueco al final */
+  transform-origin: bottom center;
+  transition: transform .12s ease, box-shadow .2s ease;
+  will-change: transform;
+}
+
+/* Flechas */
+.dock-arrows {
+  pointer-events: none;
+  position: absolute; inset-block: 0; inset-inline: 0;
+}
+
+.dock-arrow {
+  pointer-events: auto;
+  display: grid; place-items: center;
+  width: 56px; height: 56px;
+  border: 1px solid rgb(255, 255, 255);
+  background: rgba(255, 255, 255, 0.712);
+  border-radius: 999px;
+  backdrop-filter: blur(8px);
+  position: absolute; top: 50%;
+  transform: translateY(-50%);
+  z-index: 4;
+  cursor: pointer;
+  transition: transform .15s ease, opacity .2s ease;
+  opacity: .85;
+}
+.dock-arrow:hover { transform: translateY(-50%) scale(1.06); }
+.dock-arrow[disabled] { opacity: .3; cursor: default; }
+.dock-arrow--left  { left: 8px; }
+.dock-arrow--right { right: 8px; }
+
+.dock-arrow svg { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 2; }
+
+/* Fallback si JS no corre */
+@media (prefers-reduced-motion: reduce) {
+  section.proyectos.dock .card-proyecto:hover { transform: translateY(-4px) scale(1.05); }
+}
+
+/* === FIX: que las cartas NO se recorten al hacer scale === */
+
+/* La sección no debe recortar verticalmente el crecimiento */
+section.proyectos.dock { 
+  overflow: visible !important;   /* antes la tenías en hidden en alguna iteración */
+}
+
+/* El track permite crecer hacia arriba; mantiene scroll horizontal */
+section.proyectos.dock .grid-proyectos {
+  overflow-x: auto !important;
+  overflow-y: visible !important;
+}
+
+/* La card no recorta sombras ni crecimiento */
+section.proyectos.dock .card-proyecto {
+  overflow: visible !important;   /* sobreescribe el overflow: clip global */
+  transform-origin: bottom center;
+}
+
+/* La imagen interna sí respeta el borde redondeado */
+section.proyectos.dock .card-cover {
+  border-radius: inherit;
+  overflow: clip;                 /* recorta solo la imagen, no la card completa */
+}
+
+/* Por si algún padre reintroduce clip sin querer */
+.proyectos, .proyectos .container { 
+  overflow: visible !important;
+}
+
+/* Texto del MISMO ancho que la imagen/carta en Proyectos */
+section.proyectos.dock .card-body{
+  width: 100% !important;     /* igual que la card */
+  max-width: none !important;
+  margin: 0 !important;
+  padding: 16px 0 18px !important;  /* sin padding lateral */
+}
+/* Proyectos: sin scroll lateral visible ni por gesto */
+section.proyectos.dock .grid-proyectos{
+  overflow-x: hidden !important;     /* sin barra y sin scroll manual */
+  overflow-y: visible !important;
+  scrollbar-width: none;             /* Firefox: oculta barra */
+  -ms-overflow-style: none;          /* IE/Edge Legacy */
+  touch-action: pan-y;               /* en móvil: solo scroll vertical */
+}
+section.proyectos.dock .grid-proyectos::-webkit-scrollbar{ display: none; } /* WebKit */
+
+/* --- Proyectos: que las cards queden por ENCIMA del título y no se corten --- */
+section.proyectos.dock { position: relative; overflow: visible !important; }
+
+/* El grid (track) por encima del h2 */
+section.proyectos.dock h2{ position: relative; z-index: 1; }
+section.proyectos.dock .grid-proyectos{
+  position: relative;
+  z-index: 3;                 /* sobre el h2 */
+  overflow-y: visible !important;
+  /* colchón superior fantasma para que el scale no choque con el h2 */
+  padding-top: 20px;
+  margin-top: -20px;
+}
+
+/* Cada card por encima (y más aún al hover) */
+section.proyectos.dock .card-proyecto{
+  position: relative;
+  z-index: 3;
+  overflow: visible !important;
+  transform-origin: bottom center;
+}
+section.proyectos.dock .card-proyecto:hover{ z-index: 6; }
+
+/* Flechas, en su carril, sin tapar las cards */
+.dock-arrows{ z-index: 5; pointer-events: none; }
+.dock-arrow{ pointer-events: auto; }
+/* === Fondo radial para "¿Qué es?" === */
+
+/* (Opcional) un ligero viñeteado en los bordes para enfoque */
+.proyecto-completo#que-es::after{
+  content:"";
+  position: absolute; inset: 0;
+  pointer-events: none;
+  background: radial-gradient(120% 80% at 50% 50%,
+    transparent 60%, rgba(0, 0, 0, 0.027) 100%);
+}
+
+/* --- ¿Qué es? → layout en grid, lectura cómoda y logo visible --- */
+.proyecto-completo#que-es { padding: 80px 20px; }
+
+.proyecto-completo#que-es .content-wrapper{
+  display: grid !important;                         /* antes era flex */
+  grid-template-columns: minmax(320px,1.15fr) minmax(260px,1fr);
+  align-items: center;
+  gap: clamp(24px,4vw,56px);
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.proyecto-completo#que-es .texto-izquierda{
+  max-width: 100ch;                                   /* ancho de lectura */
+  text-align: left;
+  margin: 0;
+}
+.proyecto-completo#que-es .texto-izquierda h2{ text-align: left; margin-bottom: .6em; }
+.proyecto-completo#que-es .texto-izquierda p { font-size: 1.05rem; line-height: 1.85; opacity: .95; }
+.proyecto-completo#que-es .chips-servicios{ justify-content: flex-start; margin-top: 18px; }
+
+/* Columna derecha: contenedor del logo */
+.proyecto-completo#que-es .imagenes-derecha{
+  position: relative !important;
+  height: 600px !important;
+  aspect-ratio: 4 / 5;                               /* “poster vibe” */
+  max-width: 700px;
+  min-height: 360px;                                  /* asegura altura */
+  margin-inline: auto;
+  overflow: visible;
+}
+
+/* Las capas de imagen llenan el contenedor siempre */
+.proyecto-completo#que-es .imagenes-derecha .background-image{
+  position: absolute; inset: 0 !important;
+  background-position: center right !important;
+  background-size: contain !important;
+  opacity: 0; transition: opacity .8s ease;
+}
+.proyecto-completo#que-es .imagenes-derecha .background-image.visible{ opacity: 1; }
+
+/* Fallback: si el JS no corre, muestra la primera imagen */
+.proyecto-completo#que-es .imagenes-derecha .background-image:first-child{ opacity: 1; }
+
+/* Radial negro→gris (dejas el tuyo, o usa este más suave) */
+.proyecto-completo#que-es{
+  background:
+    radial-gradient(1200px 800px at 30% 20%,
+      #00000034 0%, #20202063 60%, #00000049 65%, #00000034 100%) !important;
+}
+.proyecto-completo#que-es::after{
+  content:""; position:absolute; inset:0; pointer-events:none;
+  background: radial-gradient(120% 80% at 50% 50%, transparent 62%, rgba(0,0,0,.25) 100%);
+}
+@media (max-width: 980px){
+  .proyecto-completo#que-es .content-wrapper{ grid-template-columns: 1fr; }
+  .proyecto-completo#que-es .texto-izquierda{ margin-inline:auto; max-width:65ch; }
+  .proyecto-completo#que-es .texto-izquierda h2{ text-align:center; }
+  .proyecto-completo#que-es .chips-servicios{ justify-content:center; }
+  .proyecto-completo#que-es .imagenes-derecha{ max-width: 700px; }
+}
+
+/* Sobre mí: capa parallax */
+#sobre-mi[data-parallax-bg]{
+  position: relative;
+  overflow: hidden; /* que no se salga el blur */
+}
+/* Capa de fondo en “Sobre mí” SIN imagen: manchas de luz + blur */
+#sobre-mi .about-parallax-layer{
+  position: absolute;
+  inset: -40% -5%;
+  /* en lugar de var(--about-bg): usamos gradientes difusos */
+  background:
+    radial-gradient(480px 380px at 20% 30%, rgba(255, 0, 128, 0.247), transparent 70%),
+    radial-gradient(500px 500px at 50% 45%, rgba(0, 119, 255, 0.247), transparent 75%),
+    radial-gradient(600px 520px at 55% 45%, rgba(60, 9, 141, 0.06), transparent 80%),
+    radial-gradient(480px 380px at 80% 30%, rgba(255, 0, 128, 0.171), transparent 70%);
+  background-repeat: no-repeat;
+  background-size: 120% 120%, 110% 110%, 100% 100%;
+  background-position: center;
+
+  filter: blur(48px);     /* blur fijo y suave */
+  opacity: .6;            /* sube/baja si quieres más/menos presencia */
+  transform: translateY(0) scale(1.08);
+  z-index: 1;             /* por encima del ::before sólido y por debajo del contenido */
+  pointer-events: none;
+  transition: filter .2s ease;
+}
+
+/* Base sólida debajo para tapar partículas si el PNG tuviera transparencias */
+#sobre-mi[data-parallax-bg]::before{
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: #0d0f12;
+  z-index: 0;
+}
+
+/* El contenido por encima */
+#sobre-mi .foto,
+#sobre-mi .descripcion{
+  position: relative;
+  z-index: 2;
+}
+#sobre-mi .about-parallax-layer{
+  animation: aboutGlow 16s ease-in-out infinite alternate;
+}
+
+@keyframes aboutGlow{
+  0%   { filter: blur(46px); opacity: .58; transform: translateY(var(--ty,0)) scale(1.07); }
+  100% { filter: blur(50px); opacity: .66; transform: translateY(var(--ty,0)) scale(1.09); }
+}
+
+
+/* Base sólida bajo la capa blur (por si el PNG tiene transparencias) */
+#sobre-mi[data-parallax-bg]::before{
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: #0000007e;              /* asegura que nada “traspase” */
+  z-index: 0;
+}
+
+/* ¿Qué es? — capa parallax borrosa encima del radial */
+#que-es[data-parallax-bg]{
+  position: relative;
+  overflow: hidden;          /* nada se sale */
+}
+
+/* La capa con la imagen (parallax + blur + opacidad baja) */
+#que-es .que-parallax {
+  position: absolute;
+  top: -30%; /* sube un poco para cubrir más */
+  right: 0%; /* mueve ligeramente fuera del borde derecho */
+  width: 100%; /* sólo la mitad del ancho */
+  height: 160%; /* un poco más alta para cubrir en scroll */
+  background-image: var(--que-bg);
+  background-size: 700px;
+  background-position: center;
+  background-repeat: repeat;
+  transform: translateY(50px) scale(5); /* leve zoom para evitar bordes al mover */
+  filter: blur(1px);
+  opacity: .25; /* ajusta entre 0.25 y 1 */
+  z-index: 0;
+  pointer-events: none;
+  transition: filter .2s ease;
+}
+
+
+/* Asegura que el contenido quede por encima */
+#que-es .content-wrapper{
+  position: relative;
+  z-index: 1;
+}
+
+/* --- Ticker dentro de #sobre-mi (stick al tope de la sección) --- */
+#sobre-mi{ position: relative; } /* crea contexto para sticky y z-index */
+
+.about-ticker{
+  position: sticky;    /* se “pega” al top pero solo dentro de #sobre-mi */
+  top: 0;              /* pegado arriba de la sección */
+  z-index: 3;          /* por encima del fondo parallax, debajo/igual que el contenido */
+  height: 64px;
+  overflow: hidden;
+  background: rgba(0, 0, 0, 0.363);       /* fondo visible (evita que “desaparezca”) */
+  border-top: 1px solid rgba(0, 0, 0, 0.12);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+  backdrop-filter: blur(6px);        /* leve vidrio */
+}
+
+/* la pista que se desplaza */
+.about-track{
+  display: flex;
+  align-items: center;
+  gap: 56px;
+  height: 100%;
+  padding: 0 24px;
+  white-space: nowrap;
+  animation: about-move 20s linear infinite;
+  will-change: transform;
+}
+
+/* velocidad del carrusel: baja el 20s para ir más rápido */
+@keyframes about-move {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); } /* con texto repetido crea loop infinito */
+}
+
+/* texto visible y con glow */
+.about-track span{
+  display: inline-block;
+  font-family: 'Share Tech Mono', monospace;
+  font-size: clamp(18px, 2.2vw, 28px);
+  letter-spacing: .2rem;
+  text-transform: uppercase;
+  color: var(--accent-2);
+  text-shadow:
+    0 0 6px rgba(255,255,255,.35),
+    0 0 12px rgba(255,255,255,.25),
+    0 0 18px var(--accent-2);
+}
+
+/* opcional: pausa al pasar el mouse */
+.about-ticker:hover .about-track{ animation-play-state: paused; }
+
+/* reduce motion */
+@media (prefers-reduced-motion: reduce){
+  .about-track{ animation: none; }
+}
+
+#sobre-mi {
+  position: relative; /* para anclar absolute */
+}
+
+.about-ticker{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 3;
+}
+
+/* === SOBRE MÍ: que la imagen se adapte al alto de la sección === */
+#sobre-mi.presentacion{
+  display: grid;                          /* Control del layout */
+  grid-template-columns: 1.1fr 1fr;       /* Foto | Texto (ajusta a 1fr 1fr si quieres) */
+  align-items: center;
+  gap: 24px;
+  min-height: 45vh;                       /* Ajusta 50–65vh según gusto */
+  padding: 0px 10px;                     /* Menos aire */
+}
+
+/* La columna de la foto ocupa TODO el alto de la sección */
+#sobre-mi .foto{
+  height: 100%;
+  display: flex;
+  align-items: flex-end;                  /* Para animación “desde abajo” */
+  justify-content: center;
+}
+
+/* La imagen se ajusta al alto sin deformarse */
+#sobre-mi .foto img{
+     max-height: 700px; /* <-- límite real */
+  height: auto;      /* que se adapte al ancho */
+  width: auto;
+  object-fit: contain;
+
+
+  /* Animación de entrada */
+  transform: translateY(18px);
+  opacity: 0;
+  transition: transform .5s ease, opacity .5s ease;
+}
+
+/* Texto: entrada suave también */
+#sobre-mi .descripcion{
+  max-width: 620px;
+  transform: translateY(12px);
+  opacity: 0;
+  transition: transform .5s ease .06s, opacity .5s ease .06s;
+}
+
+/* Disparo cuando la sección entra en viewport (tu JS ya añade .is-inview) */
+#sobre-mi.is-inview .foto img{ transform: translateY(0); opacity: 1; }
+#sobre-mi.is-inview .descripcion{ transform: translateY(0); opacity: 1; }
+
+/* Responsive */
+@media (max-width: 900px){
+  #sobre-mi.presentacion{
+    grid-template-columns: 1fr;   /* Apila */
+    min-height: 64vh;             /* Un pelín más alta en vertical */
+  }
+  #sobre-mi .foto{ height: 15vh; }     /* Controla el alto de la imagen en móvil */
+  #sobre-mi .foto img{ height: 100%; }
+}
+
+
+/* Forzar el ticker aunque el SO pida reducir animaciones */
+.about-track.force-ticker {
+  animation: about-move 20s linear infinite !important;
+}
+
+
+
+
+/* ===== Limpieza ordenada de "¿Qué es?" (añadido sin eliminar reglas previas) ===== */
+/* Desktop (por defecto) */
+.proyecto-completo#que-es .texto-izquierda{
+  max-width:100ch;
+  text-align:left;
+}
+.proyecto-completo#que-es .texto-izquierda h2{
+  text-align:left;
+}
+.proyecto-completo#que-es .chips-servicios{
+  justify-content:flex-start;
+}
+
+/* Mobile */
+@media (max-width:980px){
+  .proyecto-completo#que-es .texto-izquierda{
+    max-width:65ch;
+    margin-inline:auto;
+  }
+  .proyecto-completo#que-es .texto-izquierda h2{
+    text-align:center;
+  }
+  .proyecto-completo#que-es .chips-servicios{
+    justify-content:center;
+  }
+}
+
+.separador-header {
+  position: relative;
+  line-height: 50px; /* quita espacios en blanco */
+}
+
+.separador-header svg {
+  display: block;
+  width: 100%;
+  height: 100px; /* ajusta la altura de la onda */
+  
+}
+
+.separador-header path {
+  transition: fill 0.3s ease;
+}
+
+/* ===== Redes de contacto ===== */
+.redes-contacto {
+  display: flex;
+  gap: 14px;
+  margin-top: 14px;
+  justify-content: center;
+}
+.redes-contacto a {
+  display: inline-grid;
+  place-items: center;
+  width: 42px; height: 42px;
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,.5);
+  background: linear-gradient(180deg, #0f11140c, #0b0d1005);
+  box-shadow: 0 0 0 rgba(255,255,255,0);
+  transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease, color .3s ease, filter .3s ease;
+  color: var(--accent);
+  text-decoration: none;
+}
+.redes-contacto a:hover {
+  transform: translateY(-2px) scale(1.1);
+  border-color: #ffffff;
+  color: var(--accent-2);
+  box-shadow: 0 0 12px rgba(255,255,255,.35), 0 0 24px var(--accent-2);
+  filter: drop-shadow(0 0 6px var(--accent-2));
+}
+.redes-contacto .icon {
+  width: 22px; height: 22px;
+  fill: currentColor;
+  stroke: none;
+}
+/* Variante compacta en móvil */
+@media (max-width: 600px){
+  .redes-contacto { gap: 12px; }
+  .redes-contacto a { width: 38px; height: 38px; border-radius: 10px; }
+  .redes-contacto .icon { width: 20px; height: 20px; }
+}
+
+/* ===== Línea de contacto ===== */
+.contacto-linea {
+  display: flex;
+  align-items: center;   /* centra verticalmente */
+  justify-content: center; /* centra horizontalmente */
+  gap: 5px;
+  flex-wrap: wrap;
+}
+#contacto {
+  background: linear-gradient(180deg, #0f0f0f, #1a1a1a00);
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* centra horizontalmente */
+  
+  /* menos aire arriba y abajo */
+  padding: 20px 0;
+}
+
+#contacto h2 {
+  margin-top: 0;
+  margin-bottom: 10px; /* reduce espacio bajo el título */
+}
+
+#contacto p {
+  margin: 5px 0; /* reduce espacio en párrafos */
+}
+
+.contacto-linea {
+  margin-top: 10px; /* menos espacio antes de los iconos */
+}
+
+.contacto-linea a {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+  color: white;
+  font-size: 0.95rem;
+  transition: color 0.3s ease, transform 0.2s ease, filter 0.3s ease;
+}
+
+.contacto-linea a:hover {
+  color: var(--accent-2);
+  transform: scale(1.05);
+  filter: drop-shadow(0 0 6px var(--accent-2));
+}
+
+.contacto-linea .icon {
+  width: 100px;
+  height: 100px;
+  object-fit: contain;
+  fill: currentColor; /* si el SVG está configurado con currentColor */
+}
